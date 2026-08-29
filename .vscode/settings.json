@@ -1,0 +1,101 @@
+{
+  // ── Editor: distraction-free ──
+  "editor.minimap.enabled": false,
+  "editor.renderLineHighlight": "line",
+  "editor.overviewRulerBorder": false,
+  "editor.hideCursorInOverviewRuler": true,
+  "editor.glyphMargin": false,
+  "editor.foldingHighlight": false,
+  "editor.scrollbar.horizontalScrollbarSize": 6,
+  "editor.scrollbar.verticalScrollbarSize": 6,
+  "breadcrumbs.enabled": false,
+  "workbench.activityBar.location": "top",
+  "workbench.statusBar.visible": true,
+  "workbench.startupEditor": "none",
+  "workbench.tips.enabled": false,
+  "workbench.tree.enableStickyScroll": false,
+  "window.commandCenter": false,
+  "window.title": "${rootName}",
+
+  // ── Editor: code quality auto-fix ──
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "eslint.format.enable": false,
+  "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
+
+  // ── Editor: general ──
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": false,
+  "editor.renderWhitespace": "boundary",
+  "editor.suggestSelection": "first",
+  "editor.acceptSuggestionOnCommitCharacter": false,
+  "editor.quickSuggestions": {
+    "strings": "on"
+  },
+  "editor.wordBasedSuggestions": "off",
+  "editor.semanticHighlighting.enabled": true,
+  "editor.linkedEditing": true,
+  "editor.stickyScroll.enabled": false,
+  "editor.cursorBlinking": "solid",
+  "editor.smoothScrolling": true,
+
+  // ── Files ──
+  "files.autoSave": "onFocusChange",
+  "files.exclude": {
+    "**/.next": true,
+    "**/node_modules": true,
+    "**/.turbo": true,
+    "**/dist": true
+  },
+  "files.watcherExclude": {
+    "**/.next/**": true,
+    "**/node_modules/**": true,
+    "**/.turbo/**": true
+  },
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+
+  // ── TypeScript / JavaScript ──
+  "js/ts.tsdk.path": "node_modules/typescript/lib",
+  "js/ts.tsdk.promptToUseWorkspaceVersion": true,
+  "js/ts.preferences.importModuleSpecifier": "non-relative",
+  "js/ts.preferences.preferTypeOnlyAutoImports": true,
+  "js/ts.preferences.quoteStyle": "double",
+  "js/ts.suggest.autoImports": true,
+  "js/ts.updateImportsOnFileMove.enabled": "always",
+
+  // ── Tailwind CSS ──
+  "tailwindCSS.experimental.classRegex": [["cn\\(([^)]*)\\)", "[\"'`]([^\"'`]*)[\"'`]"]],
+  "tailwindCSS.classAttributes": ["class", "className", "ngClass"],
+
+  // ── Prisma ──
+  "[prisma]": {
+    "editor.formatOnSave": true
+  },
+
+  // ── Search ──
+  "search.exclude": {
+    "**/.next": true,
+    "**/node_modules": true,
+    "**/coverage": true
+  },
+
+  // ── Explorer: file nesting for Next.js App Router ──
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.patterns": {
+    "*.tsx": "${capture}.css, ${capture}.test.tsx, ${capture}.test.ts",
+    "*.ts": "${capture}.test.ts, ${capture}.test.tsx",
+    "route.ts": "page.tsx, layout.tsx, loading.tsx, error.tsx, not-found.tsx",
+    "layout.tsx": "page.tsx, loading.tsx, error.tsx, not-found.tsx",
+    "page.tsx": "*.css",
+    "package.json": "pnpm-lock.yaml, tsconfig.json, .eslintrc*, .prettierrc*, .gitignore, next.config.*, postcss.config.*, tailwind.config.*, vitest.config.*, playwright.config.*",
+    "next.config.*": "postcss.config.*, tailwind.config.*, vitest.config.*",
+    "tsconfig.json": "tsconfig.*.json"
+  }
+}

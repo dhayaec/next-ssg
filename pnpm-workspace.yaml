@@ -1,3 +1,5 @@
+allowBuilds:
+  unrs-resolver: true
 build:
   allowBuilds:
     - unrs-resolver
