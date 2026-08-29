@@ -1,0 +1,15 @@
+node_modules/
+.next/
+out/
+.git
+.github
+.gitignore
+terraform/
+*.md
+.env*
+coverage/
+npm-debug.log
+pnpm-debug.log
+*.tgz
+.DS_Store
+Thumbs.db

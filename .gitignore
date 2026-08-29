@@ -1,0 +1,43 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+.pnp.loader.mjs
+
+# Next.js build output
+.next/
+out/
+
+# Local env files
+.env
+.env.local
+.env.*.local
+
+# Tests
+coverage/
+
+# Debug
+npm-debug.log
+pnpm-debug.log
+*.tgz
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Terraform
+.terraform/
+terraform.tfstate
+terraform.tfstate.*
+*.tfvars
+*.tfvars.json
+
+# Misc
+*.log
