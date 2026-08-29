@@ -22,5 +22,4 @@
     "eslint-config-next": "^15.0.3",
     "typescript": "^5.7.0"
   },
-  "packageManager": "pnpm@10.0.0"
 }
