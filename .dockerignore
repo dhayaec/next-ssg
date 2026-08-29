@@ -12,4 +12,6 @@ npm-debug.log
 pnpm-debug.log
 *.tgz
 .DS_Store
+.pnpm-approved-builds
+.pnpm-store/
 Thumbs.db
