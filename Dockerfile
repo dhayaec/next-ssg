@@ -1,8 +1,8 @@
 # Build
 FROM node:22-alpine AS builder
 WORKDIR /app
-COPY package.json pnpm-lock.yaml pnpm-workspace.yaml .
-RUN corepack enable && pnpm install --frozen-lockfile
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml .npmrc .
+RUN echo "unrs-resolver" > .pnpm-approved-builds && corepack enable && pnpm install --frozen-lockfile
 COPY . .
 RUN pnpm build
 
