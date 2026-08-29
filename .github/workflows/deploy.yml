@@ -1,4 +1,4 @@
-name: Deploy to AWS
+name: Deploy to AWS ECS
 
 on:
   push:
@@ -8,25 +8,52 @@ permissions:
   id-token: write
   contents: read
 
+env:
+  APP_NAME: next-ssg
+  AWS_REGION: us-east-1
+  ECR_REPO: next-ssg
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
         with:
-          version: 10
-      - uses: actions/setup-node@v4
+          role-to-assume: arn:aws:iam::095232028249:role/github-oidc-next-ssg
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and push to ECR
+        uses: docker/build-push-action@v5
         with:
-          node-version: 22
-          cache: "pnpm"
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm build
-      - uses: aws-actions/configure-aws-credentials@v4
-        with:
-          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
-          aws-region: us-east-1
-      - name: Upload to S3
-        env:
-          BUCKET: ${{ secrets.S3_BUCKET_NAME }}
-        run: aws s3 sync out/ s3://$BUCKET --delete
+          context: .
+          push: true
+          tags: |
+            ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPO }}:${{ github.sha }}
+            ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPO }}:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Update ECS service
+        run: |
+          aws ecs update-service \
+            --cluster ${{ env.APP_NAME }}-cluster \
+            --service ${{ env.APP_NAME }} \
+            --force-new-deployment \
+            --region ${{ env.AWS_REGION }}
+
+      - name: Wait for deployment
+        run: |
+          aws ecs wait services-stable \
+            --cluster ${{ env.APP_NAME }}-cluster \
+            --services ${{ env.APP_NAME }} \
+            --region ${{ env.AWS_REGION }}
