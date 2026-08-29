@@ -6,7 +6,7 @@ export default async function HomePage() {
 
   return (
     <main className="container">
-      <h1>Users</h1>
+      <h1>Users List</h1>
       <section className="users-grid" aria-label="User list">
         {users.map((user) => (
           <UserCard key={user.id} user={user} />
