@@ -2,6 +2,9 @@
   "name": "next-ssg",
   "version": "1.0.0",
   "private": true,
+  "pnpm": {
+    "onlyBuiltDependencies": ["unrs-resolver"]
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
