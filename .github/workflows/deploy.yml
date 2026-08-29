@@ -19,20 +19,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Debug OIDC token claims
-        run: |
-          echo "ACTOR=${{ github.actor }}"
-          echo "REPO=${{ github.repository }}"
-          echo "REF=${{ github.ref }}"
-          echo "EVENT=${{ github.event_name }}"
-          echo "TOKEN_URL=$ACTIONS_ID_TOKEN_REQUEST_URL"
-          if [ -n "$ACTIONS_ID_TOKEN_REQUEST_TOKEN" ]; then
-            TOKEN=$(curl -s -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
-              "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=sts.amazonaws.com" | jq -r .value)
-            echo "--- Token payload (sub/ aud) ---"
-            echo "$TOKEN" | cut -d. -f2 | tr '_-' '/+' | base64 -d 2>/dev/null || echo "base64 decode failed"
-          fi
-
       - name: Configure AWS credentials (OIDC)
         uses: aws-actions/configure-aws-credentials@v4
         with:
