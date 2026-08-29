@@ -2,7 +2,7 @@
 FROM node:22-alpine AS builder
 WORKDIR /app
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml .npmrc .
-RUN echo "unrs-resolver" > .pnpm-approved-builds && corepack enable && pnpm install --frozen-lockfile
+RUN corepack enable && CI=true pnpm install --frozen-lockfile --ignore-scripts
 COPY . .
 RUN pnpm build
 
